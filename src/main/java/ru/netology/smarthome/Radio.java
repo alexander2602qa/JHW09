@@ -3,6 +3,15 @@ package ru.netology.smarthome;
 public class Radio {
     private int stationNumber = 0;
     private int volume = 0;
+    private int countOfStation;
+
+    public Radio(int countOfStation) {
+        this.countOfStation = countOfStation;
+    }
+
+    public Radio() {
+        this.countOfStation = 10;
+    }
 
     public int getStationNumber() {
         return stationNumber;
@@ -12,14 +21,14 @@ public class Radio {
         if (newStationNumber < 0) {
             return;
         }
-        if (newStationNumber > 9) {
+        if (newStationNumber >= countOfStation) {
             return;
         }
         stationNumber = newStationNumber;
     }
 
     public void next() {
-        if (stationNumber == 9) {
+        if (stationNumber == countOfStation - 1) {
             stationNumber = 0;
         } else {
             stationNumber++;
@@ -28,7 +37,7 @@ public class Radio {
 
     public void prev() {
         if (stationNumber == 0) {
-            stationNumber = 9;
+            stationNumber = countOfStation - 1;
         } else {
             stationNumber--;
         }

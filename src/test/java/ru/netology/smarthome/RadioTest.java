@@ -6,12 +6,24 @@ import org.junit.jupiter.api.Test;
 public class RadioTest {
 
     @Test
-    public void shouldSetStationNumberMaxAllowedValue() {
+    public void shouldSetStationNumberMaxAllowedValueNoParam() {
         Radio radio = new Radio();
 
         radio.setStationNumber(9);
 
         int expected = 9;
+        int actual = radio.getStationNumber();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetStationNumberMaxAllowedValueWithParam() {
+        Radio radio = new Radio(23);
+
+        radio.setStationNumber(22);
+
+        int expected = 22;
         int actual = radio.getStationNumber();
 
         Assertions.assertEquals(expected, actual);
@@ -30,10 +42,22 @@ public class RadioTest {
     }
 
     @Test
-    public void shouldNotSetStationNumberAboveRange() {
+    public void shouldNotSetStationNumberAboveRangeNoParam() {
         Radio radio = new Radio();
 
         radio.setStationNumber(10);
+
+        int expected = 0;
+        int actual = radio.getStationNumber();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldNotSetStationNumberAboveRangeWithParam() {
+        Radio radio = new Radio(45);
+
+        radio.setStationNumber(45);
 
         int expected = 0;
         int actual = radio.getStationNumber();
@@ -54,7 +78,7 @@ public class RadioTest {
     }
 
     @Test
-    public void shouldSetNextValueIfCurrentIsNot9() {
+    public void shouldSetNextValueIfCurrentIsNot9NoParam() {
         Radio radio = new Radio();
 
         radio.setStationNumber(8);
@@ -67,10 +91,36 @@ public class RadioTest {
     }
 
     @Test
-    public void shouldSetNextValueIfCurrentIs9() {
+    public void shouldSetNextValueIfCurrentIsNotMaxWithParam() {
+        Radio radio = new Radio(45);
+
+        radio.setStationNumber(43);
+        radio.next();
+
+        int expected = 44;
+        int actual = radio.getStationNumber();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetNextValueIfCurrentIs9NoParam() {
         Radio radio = new Radio();
 
         radio.setStationNumber(9);
+        radio.next();
+
+        int expected = 0;
+        int actual = radio.getStationNumber();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetNextValueIfCurrentIsMaxWithParam() {
+        Radio radio = new Radio(34);
+
+        radio.setStationNumber(33);
         radio.next();
 
         int expected = 0;
@@ -93,13 +143,26 @@ public class RadioTest {
     }
 
     @Test
-    public void shouldSetPrevValueIfCurrentIs0() {
+    public void shouldSetPrevValueIfCurrentIsZeroNoParam() {
         Radio radio = new Radio();
 
         radio.setStationNumber(0);
         radio.prev();
 
         int expected = 9;
+        int actual = radio.getStationNumber();
+
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldSetPrevValueIfCurrentIsZeroWithParam() {
+        Radio radio = new Radio(54);
+
+        radio.setStationNumber(0);
+        radio.prev();
+
+        int expected = 53;
         int actual = radio.getStationNumber();
 
         Assertions.assertEquals(expected, actual);
